@@ -1,0 +1,1177 @@
+/* --- Tema "Todo Naranja" --- */
+:root {
+    --primary-color: #e63946;         /* Rojo para botones y elementos importantes */
+    --accent-color: #ffb347;          /* Naranja para el degradado y acentos */
+    --dark-color: #2b2d42;            /* Azul marino oscuro para el texto principal */
+    --light-color: #edf2f4;           /* Color claro para texto sobre fondos oscuros (botones, títulos, menú) */
+    --black-color: #000000;           /* Nuevo: Color negro puro */
+    --gray-light: #f0f0f0;            /* Nuevo: Gris muy claro para fondos sutiles */
+    --gray-medium: #bdbdbd;           /* Nuevo: Gris medio para bordes sutiles */
+    --comment-background: #ffffff;    /* Nuevo: Blanco puro para el fondo de cada comentario */
+    --comment-border-color: #e0e0e0;  /* Nuevo: Borde muy claro para los comentarios */
+    --comment-text-color: #333333;    /* Nuevo: Gris oscuro casi negro para el texto del comentario */
+    --comment-meta-color: #777777;    /* Nuevo: Gris medio para fecha/hora */
+    --action-button-color: #6a0dad;   /* Nuevo: Color similar al morado de la imagen para botones de acción */
+
+
+    /* Variables para el efecto de vidrio - ajustados */
+    --header-background: rgba(255, 255, 255, 0.25); /* Menú más transparente */
+    --blur-effect: blur(12px);
+
+    --main-font: 'Montserrat', sans-serif;
+    --border-radius: 15px;
+    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    --success-color: #4CAF50;
+    --error-color: #F44336;
+    --info-color: #2196F3;
+
+    /* Colores de texto según el fondo */
+    --text-on-dark: var(--light-color);  /* Texto claro sobre fondos oscuros */
+    --text-on-light: var(--dark-color);  /* Texto azul marino sobre fondos claros/naranjas */
+    --white-text-area-background: #ffffff; /* Fondo blanco para áreas de texto */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    color: var(--white-text-area-background); /* Texto principal en azul marino por defecto */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+section {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Degradado naranja para secciones */
+    padding: 40px 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    color: var(--text-on-light); /* Texto azul marino en secciones con degradado naranja */
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    color: var(--dark-color); /* Títulos en azul marino */
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 15px;
+    color: var(--dark-color); /* Párrafos en azul marino */
+}
+
+a {
+    color: var(--dark-color); /* Links en azul marino */
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: bold;
+}
+
+a:hover {
+    color: var(--light-color); /* Hover en color claro (contraste) */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Loader */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--dark-color); /* Mantenido oscuro para el loader */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    transition: opacity 0.5s ease-out;
+}
+
+#loader.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-content img {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+    animation: bounce 1s infinite alternate;
+}
+
+.loader-content p {
+    color: var(--text-on-dark); /* Texto claro en el loader */
+    font-size: 1.2em;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-20px); }
+}
+
+/* Header */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--header-background); /* Header transparente */
+    backdrop-filter: var(--blur-effect);
+    -webkit-backdrop-filter: var(--blur-effect);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: var(--shadow);
+}
+
+.logo {
+    font-size: 2.5em;
+    font-weight: 900;
+    color: var(--light-color); /* El logo claro para que resalte */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.logo-link {
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    font-size: 1.1em;
+}
+
+.nav-links a {
+    color: var(--light-color); /* Links de navegación claros */
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-color); /* Indicador de hover en rojo */
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color); /* Borde rojo */
+    transition: transform 0.2s ease;
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Degradado naranja para el dropdown */
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-out;
+    color: var(--light-color); /* Texto claro para el contenido del dropdown */
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: var(--dark-color); /* Header del dropdown en azul marino */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-on-dark); /* Texto claro en el header del dropdown */
+}
+
+.dropdown-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 2px solid var(--accent-color);
+}
+
+#dropdown-username {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--text-on-dark); /* Nombre de usuario claro */
+}
+
+.dropdown-content a {
+    color: var(--dark-color); /* Links del dropdown en azul marino */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--dark-color); /* Hover en azul marino */
+    color: var(--light-color);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hamburger Menu for Mobile */
+.hamburger {
+    display: none;
+    font-size: 1.8em;
+    cursor: pointer;
+    color: var(--light-color); /* Hamburger claro */
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+        flex-wrap: nowrap;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--dark-color); /* Fondo azul marino para el menú móvil */
+        position: absolute;
+        top: 80px;
+        left: 0;
+        padding: 10px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        z-index: 990;
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .nav-links a {
+        padding: 10px 20px;
+        text-align: center;
+        width: 100%;
+    }
+    .hamburger {
+        display: block;
+    }
+    .profile-dropdown {
+        order: 1;
+        margin-left: auto;
+        margin-right: 15px;
+    }
+    .logo-link {
+        order: 2;
+        flex-grow: 1;
+        text-align: center;
+    }
+    .hamburger {
+        order: 3;
+    }
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Degradado naranja para hero */
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+.hero-text {
+    margin-bottom: 30px;
+    color: var(--text-on-light); /* Texto azul marino para el hero */
+}
+
+.hero-text h2 {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+    color: var(--dark-color); /* Título azul marino */
+    line-height: 1.2;
+}
+
+.hero-text p {
+    font-size: 1.4em;
+    color: var(--dark-color); /* Párrafo azul marino */
+}
+
+.hero img {
+    max-width: 90%;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.hero img:hover {
+    transform: scale(1.02);
+}
+
+@media (min-width: 768px) {
+    .hero {
+        flex-direction: row;
+        text-align: left;
+        padding: 80px 40px;
+    }
+    .hero-text {
+        flex: 1;
+        margin-right: 40px;
+        margin-bottom: 0;
+    }
+    .hero img {
+        flex: 1;
+        max-width: 50%;
+    }
+}
+
+/* Common Section Styling */
+section h2 {
+    font-size: 2.2em;
+    margin-bottom: 30px;
+}
+
+.no-content-message, .no-galeria-message {
+    color: var(--dark-color); /* Texto azul marino para mensajes sobre fondos naranjas */
+    font-size: 1.1em;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.1); /* Fondo muy sutil */
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* Grids */
+.fanfics-grid {
+    display: grid;
+    gap: 30px;
+    padding: 20px 0;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Fanfic Card */
+.fanfic-card {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Degradado naranja para tarjetas de fanfic */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Borde sutil y oscuro */
+    max-width: 350px;
+    margin: 0 auto;
+    color: var(--text-on-light); /* Texto azul marino para tarjetas de fanfic */
+}
+
+.fanfic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.fanfic-card-cover {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Borde inferior oscuro */
+}
+
+.fanfic-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.fanfic-card-content h3 {
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--dark-color); /* Título azul marino */
+}
+
+.fanfic-meta {
+    font-size: 0.9em;
+    color: #444; /* Gris oscuro para meta */
+    margin-bottom: 10px;
+}
+
+.fanfic-snippet {
+    font-size: 1em;
+    color: var(--dark-color); /* Texto azul marino */
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.leer-mas {
+    display: inline-block;
+    background-color: var(--dark-color); /* Botón de leer más azul marino */
+    color: var(--light-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.leer-mas:hover {
+    background-color: var(--primary-color); /* Rojo al pasar el mouse */
+}
+
+/* Galería Fan Art - Estilo de Cuadrícula Corregido */
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.galeria-grid .galeria-card {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Degradado naranja para tarjetas de galería */
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    color: var(--text-on-light); /* Texto azul marino para tarjetas de galería */
+}
+
+.galeria-grid .galeria-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.galeria-grid .galeria-image {
+    width: 100%;
+    height: 250px; /* Altura fija para uniformidad */
+    object-fit: cover;
+    display: block;
+}
+
+.galeria-info {
+    display: none; /* Se oculta para simplificar, la info se ve en el modal */
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--dark-color); /* Etiquetas en azul marino para contraste */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--dark-color); /* Borde azul marino para los inputs */
+    border-radius: 5px;
+    background-color: var(--white-text-area-background); /* Fondo blanco para inputs */
+    color: var(--dark-color); /* Texto azul marino en los inputs */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color); /* Borde rojo al enfocar */
+    box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.3); /* Sombra roja suave */
+}
+
+/* Fanfic Content Display Area */
+.story-content {
+    background-color: var(--white-text-area-background); /* Fondo blanco para el contenido de la historia */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    color: var(--dark-color); /* Texto azul marino para el contenido de la historia */
+    text-align: left;
+    line-height: 1.8;
+}
+
+.story-content h2, .story-content h3 {
+    color: var(--dark-color); /* Títulos en azul marino */
+}
+
+.story-content p {
+    color: var(--dark-color); /* Párrafos en azul marino */
+}
+
+
+.btn-primary, .btn-secondary, .btn-danger {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    font-size: 1em;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--dark-color); /* Botón principal azul marino */
+    color: var(--light-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color); /* Rojo al pasar el mouse */
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: rgba(0, 0, 0, 0.2); /* Botón secundario semi-transparente oscuro */
+    color: var(--dark-color); /* Texto en azul marino */
+    border: 1px solid var(--dark-color); /* Borde azul marino */
+}
+
+.btn-secondary:hover {
+    background-color: var(--dark-color); /* Azul marino al pasar el mouse */
+    color: var(--light-color);
+    transform: translateY(-2px);
+}
+
+/* Notifications */
+#notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--info-color);
+    color: var(--light-color);
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    z-index: 1000;
+    text-align: center;
+    min-width: 250px;
+}
+
+#notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#notification.success {
+    background-color: var(--success-color);
+}
+
+#notification.error {
+    background-color: var(--error-color);
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo de modal más oscuro y opaco */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.is-visible {
+    display: flex;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Degradado naranja para modales */
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px;
+    position: relative;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    animation: zoomIn 0.3s ease-out;
+    color: var(--text-on-light); /* Texto azul marino para el contenido del modal */
+}
+
+.modal-content.small-modal {
+    max-width: 450px;
+    text-align: center;
+}
+
+/* Botones de cerrar (las "equis") - AHORA NEGRAS */
+.cerrar-upload, .cerrar-fanfic, .cerrar-image-modal, .cerrar-confirm, .cerrar-report, .cerrar-admin {
+    color: var(--black-color); /* Color negro para la 'X' */
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.cerrar-upload:hover, .cerrar-fanfic:hover, .cerrar-image-modal:hover, .cerrar-confirm:hover, .cerrar-report:hover, .cerrar-admin:hover {
+    color: var(--primary-color); /* Roja al pasar el mouse */
+    opacity: 0.8;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Modal Specifics */
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Image Detail Modal */
+.image-detail-content {
+    text-align: center;
+}
+
+.modal-detail-image {
+    max-width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.image-modal-meta {
+    font-size: 0.9em;
+    color: var(--dark-color); /* Texto azul marino para meta info en modal */
+    margin-bottom: 15px;
+}
+
+.image-detail-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.image-like-button {
+    background: none;
+    border: none;
+    color: var(--dark-color); /* Botón de like azul marino */
+    font-size: 1.2em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.2s ease;
+}
+
+.image-like-button i {
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.image-like-button.liked i {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.image-like-button:hover i {
+    color: var(--primary-color);
+}
+
+/* Comments Section - Nuevo Diseño */
+.comments-section {
+    margin-top: 40px; /* Más espacio superior */
+    padding-top: 0; /* Eliminar padding superior, se lo daremos a la lista */
+    text-align: left;
+    background: transparent; /* Fondo transparente para ver el degradado del body */
+    border-radius: 0; /* Eliminar border-radius */
+    padding: 0; /* Eliminar padding de la sección */
+    box-shadow: none; /* Eliminar sombra de la sección */
+    border-top: none; /* Eliminar borde superior de la sección */
+}
+
+.comments-section h3 {
+    color: var(--dark-color); /* Título de comentarios azul marino */
+    margin-bottom: 25px; /* Más espacio inferior */
+    font-size: 1.8em; /* Título más prominente */
+    text-align: center; /* Centrar el título de comentarios */
+}
+
+.comments-list {
+    max-height: 400px; /* Aumentar altura máxima para más comentarios */
+    overflow-y: auto;
+    padding-right: 15px; /* Más padding para la barra de scroll */
+    margin-bottom: 25px; /* Más espacio inferior */
+    padding-left: 0; /* No borde izquierdo en la lista */
+    border-left: none; /* Eliminar borde izquierdo de la lista */
+    display: flex; /* Usar flexbox para la lista */
+    flex-direction: column; /* Apilar comentarios verticalmente */
+    gap: 20px; /* Espacio entre comentarios */
+}
+
+.comment-item {
+    background-color: var(--comment-background); /* Fondo blanco puro para cada comentario */
+    padding: 15px 20px; /* Más padding */
+    border-radius: 12px; /* Más redondeado, similar a la imagen */
+    border: 1px solid var(--comment-border-color); /* Borde muy claro */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra más prominente para la tarjeta */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex; /* Para organizar contenido interno */
+    align-items: flex-start; /* Alinear el inicio */
+    gap: 15px; /* Espacio entre avatar/icono y texto */
+}
+
+.comment-item:hover {
+    transform: translateY(-3px); /* Ligero levantamiento al pasar el mouse */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15); /* Sombra más pronunciada al hover */
+}
+
+/* Avatar del usuario en el comentario */
+.comment-avatar {
+    width: 45px; /* Tamaño del avatar */
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--dark-color); /* Fondo azul marino para el avatar si no hay imagen */
+    color: var(--light-color); /* Color de texto/icono si no hay imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    flex-shrink: 0;
+    overflow: hidden; /* Asegura que la imagen de avatar no se desborde */
+    border: 2px solid var(--primary-color); /* Borde rojo alrededor del avatar */
+}
+
+.comment-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%; /* Asegura que la imagen sea circular */
+}
+
+/* Si no hay imagen, usar la inicial o un icono (la lógica de fallback se maneja con JS) */
+.comment-avatar:empty::before {
+    content: attr(data-initial); /* Usa el atributo data-initial */
+    font-family: 'Font Awesome 5 Free'; /* Asume Font Awesome para el icono si JS lo inserta */
+    font-weight: 900;
+}
+
+
+.comment-content-wrapper {
+    flex-grow: 1; /* Permite que el contenido tome el espacio restante */
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.comment-author-info {
+    display: flex;
+    flex-direction: column; /* Apilar nombre y fecha */
+}
+
+.comment-author-info strong {
+    color: var(--dark-color); /* Nombre de usuario en azul marino */
+    font-size: 1.1em; /* Un poco más grande */
+    font-weight: 700;
+}
+
+.comment-author-info small {
+    color: var(--comment-meta-color); /* Gris medio para la fecha */
+    font-size: 0.8em;
+    display: block;
+    margin-top: 2px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 10px; /* Espacio entre botones de acción */
+}
+
+.comment-actions .action-btn {
+    background: none;
+    border: none;
+    color: var(--comment-meta-color); /* Color gris para los iconos de acción */
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: color 0.2s ease, transform 0.2s ease;
+    padding: 5px; /* Padding para hacer clic más fácil */
+    border-radius: 5px;
+}
+
+.comment-actions .action-btn:hover {
+    color: var(--primary-color); /* Rojo al pasar el mouse */
+    transform: translateY(-1px);
+}
+
+.comment-actions .action-btn.delete-btn:hover {
+    color: var(--error-color); /* Rojo de error para eliminar */
+}
+
+
+.comment-item p {
+    color: var(--comment-text-color); /* Texto del comentario en gris oscuro */
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: 10px; /* Espacio antes de los botones de responder */
+}
+
+/* Botón Responder dentro del comentario */
+.comment-item .reply-btn {
+    display: inline-flex; /* Usar flexbox para el icono y texto */
+    align-items: center;
+    gap: 5px;
+    background-color: var(--dark-color); /* Fondo azul marino para el botón */
+    color: var(--light-color); /* Texto claro */
+    padding: 8px 15px;
+    border-radius: 20px; /* Borde más redondeado */
+    font-size: 0.9em;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.comment-item .reply-btn:hover {
+    background-color: var(--primary-color); /* Rojo al pasar el mouse */
+    transform: translateY(-2px);
+}
+
+
+/* Formulario de comentarios */
+#image-comment-form {
+    margin-top: 30px; /* Más espacio superior */
+    padding: 25px; /* Padding para el formulario */
+    background-color: var(--comment-background); /* Fondo blanco para el formulario */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra similar a los comentarios */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.comment-input-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.comment-input-area .comment-avatar {
+    width: 50px; /* Un poco más grande para el avatar del usuario actual */
+    height: 50px;
+}
+
+#image-comment-form textarea {
+    flex-grow: 1; /* Permite que el textarea ocupe el espacio restante */
+    resize: vertical;
+    min-height: 80px;
+    max-height: 200px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: var(--white-text-area-background);
+    color: var(--dark-color);
+    border: 1px solid var(--gray-medium); /* Borde gris más suave */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#image-comment-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
+}
+
+#image-comment-form .btn-primary {
+    align-self: flex-end; /* Alinear el botón a la derecha en la parte inferior */
+    margin-top: 0; /* Eliminar margen superior si se usó flotación antes */
+}
+
+/* File Upload (Drop Area) */
+.drop-area {
+    border: 2px dashed var(--dark-color); /* Borde azul marino para el drop area */
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    background-color: var(--white-text-area-background); /* Fondo blanco para drop area */
+    color: var(--dark-color); /* Texto azul marino */
+}
+
+.drop-area.highlight {
+    background-color: rgba(255,255,255,0.9); /* Color de resaltado más claro */
+    border-color: var(--primary-color);
+}
+
+.drop-area p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+#file-preview img {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 5px;
+    margin-top: 20px;
+    border: 1px solid var(--dark-color);
+}
+
+/* Tags - Con degradado y diseño mejorado */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Mayor separación entre tags */
+    margin-bottom: 20px; /* Más espacio inferior */
+    min-height: 40px;
+    border: 1px solid var(--dark-color); /* Borde azul marino para el contenedor de tags */
+    border-radius: 8px; /* Ligeramente más redondeado */
+    padding: 10px;
+    background-color: var(--white-text-area-background); /* Fondo blanco para el contenedor de tags */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra interna sutil */
+}
+
+.tag, .editable-tag {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%); /* Degradado naranja completo */
+    color: var(--dark-color); /* Texto azul marino en las etiquetas */
+    padding: 8px 15px; /* Más padding para que sean más grandes */
+    border-radius: 25px; /* Más redondeado para un aspecto de píldora */
+    font-size: 1em; /* Un poco más grande el texto */
+    font-weight: 600; /* Semi-negrita para mayor legibilidad */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre texto y la 'x' */
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Borde sutil para definir */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Sombra para efecto 3D */
+    transition: all 0.2s ease-in-out; /* Transición suave para hover */
+    cursor: default; /* Por defecto no cursor de puntero a menos que sea interactivo */
+}
+
+.tag:hover, .editable-tag:hover {
+    transform: translateY(-2px); /* Pequeño levantamiento al pasar el ratón */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Sombra más pronunciada al pasar el ratón */
+    filter: brightness(1.05); /* Ligeramente más brillante */
+}
+
+.editable-tag {
+    cursor: pointer; /* Cursor de puntero para tags editables */
+}
+
+.editable-tag .remove-tag-btn {
+    background: none;
+    border: none;
+    color: var(--dark-color); /* Color azul marino para el botón de eliminar tag */
+    font-size: 1.2em; /* Tamaño de la 'x' */
+    cursor: pointer;
+    margin-left: 5px;
+    opacity: 0.8;
+    transition: color 0.2s ease, opacity 0.2s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.editable-tag .remove-tag-btn:hover {
+    color: var(--primary-color); /* Rojo al pasar el ratón sobre la 'x' */
+    opacity: 1;
+}
+
+.suggested-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Mayor separación */
+    margin-top: 15px; /* Más espacio superior */
+}
+
+.suggested-tag {
+    background-color: var(--dark-color); /* Suggested tags en azul marino */
+    color: var(--light-color);
+    padding: 8px 15px;
+    border-radius: 25px; /* Más redondeado */
+    font-size: 0.95em; /* Un poco más grande */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--light-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.suggested-tag:hover {
+    background-color: var(--accent-color);
+    color: var(--dark-color);
+    transform: translateY(-3px); /* Efecto más pronunciado al levantar */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.suggested-tag.selected {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Degradado para tags seleccionadas */
+    color: var(--dark-color); /* Texto azul marino en tags seleccionadas */
+    border-color: var(--dark-color); /* Borde azul marino */
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px); /* Ligeramente elevado para indicar selección */
+}
+
+.tags-container-modal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+    border-top: 1px solid rgba(0,0,0,0.3); /* Borde oscuro */
+    padding-top: 15px;
+}
+
+.tags-container-modal .tag {
+    background-color: var(--dark-color); /* Tags en modal azul marino (mantener para contraste en algunos modales) */
+    color: var(--light-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Añadir sombra también aquí */
+    border: none; /* No border para estas */
+}
+
+/* Search Input */
+.search-input {
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--dark-color); /* Borde azul marino */
+    border-radius: 50px;
+    background-color: var(--white-text-area-background); /* Fondo blanco para search input */
+    color: var(--dark-color); /* Texto azul marino */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1em;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.search-input::placeholder {
+    color: var(--dark-color);
+    opacity: 0.7;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
+}
+
+/* FAB for Gallery Upload */
+.fab-upload-image {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    z-index: 100;
+    border: none;
+}
+
+.fab-upload-image:hover {
+    background-color: #d62828;
+    transform: translateY(-3px);
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Degradado naranja para el footer */
+    color: var(--dark-color); /* Texto azul marino para el footer */
+    text-align: center;
+    padding: 20px 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2); /* Borde superior oscuro */
+    margin-top: 30px;
+}
+
+.social-media a {
+    color: var(--dark-color); /* Links de redes sociales azul marino */
+    margin: 0 10px;
+    font-size: 0.9em;
+}
+
+.social-media a:hover {
+    color: var(--light-color); /* Hover en color claro */
+}

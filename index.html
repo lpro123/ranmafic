@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ranmafic - Tu comunidad de Fanfiction y Fan Art de Ranma ½</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="multimedia/img/ChatGPT Image 22 jul 2025, 07_27_47 p.m..png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <div id="loader">
+    <div class="loader-content">
+        <img src="multimedia/img/p-chan-running.gif" alt="P-Chan corriendo">
+        <p>Cargando el mundo de Ranmafic...</p>
+    </div>
+  </div>
+
+  <div id="notification"></div>
+
+  <div id="app" style="display: none;">
+   <header>
+    <a href="index.html" class="logo-link"><h1 class="logo">RANMAFIC</h1></a>
+    <nav class="nav-links">
+        <a href="index.html" class="active">Inicio</a>
+        <a href="galeria.html">Galería Fan Art</a>
+        <a href="fanfics.html">Fanfics</a>
+    </nav>
+    
+    <div class="profile-dropdown">
+        <img src="https://placehold.co/100x100/2B2D42/FFFFFF?text=U" alt="Foto de perfil" class="profile-avatar" id="profile-avatar-icon">
+        <div class="dropdown-content" id="profile-menu">
+            <div class="dropdown-header">
+                <img src="https://placehold.co/100x100/2B2D42/FFFFFF?text=U" alt="Foto de perfil" class="dropdown-avatar" id="dropdown-avatar-img">
+                <span id="dropdown-username">Nombre de Usuario</span>
+            </div>
+            <a href="#" id="change-photo-link">Cambiar foto</a>
+            <input type="file" id="avatar-upload-input" accept="image/*" style="display: none;">
+            <a href="#" id="delete-account-link">Eliminar cuenta</a>
+            <a href="#" id="report-problem-link">Reportar un problema</a>
+            <a href="#" id="admin-panel-link" style="display: none;">Panel de Administrador</a>
+            <a href="#" id="logout-link">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <div class="hamburger">
+        <i class="fas fa-bars"></i>
+    </div>
+</header>
+
+    <main>
+      <section id="inicio" class="hero">
+        <div class="hero-text">
+          <h2>¡Bienvenidos al Mundo de Ranmafic!</h2>
+          <p>Tu punto de encuentro para todo lo relacionado con Ranma ½.</p>
+        </div>
+        <img src="multimedia/img/holas.jpeg" alt="Imagen de Ranma y Akane" onerror="this.onerror=null;this.src='https://placehold.co/1200x450/cccccc/ffffff?text=Imagen+Hero';">
+      </section>
+      
+      <section id="fanfics-recientes">
+          <h2>Fanfics Recientes</h2>
+          <div class="fanfics-grid" id="fanfics-recientes-grid"></div>
+          <p class="no-content-message" id="no-fanfics-index" style="display: none;">Aún no hay fanfics. ¡Sé el primero en escribir uno!</p>
+      </section>
+      
+      <section id="usuarios-registrados" style="display: none;">
+        <h2>Usuarios Registrados</h2>
+        <ul id="lista-usuarios"></ul>
+      </section>
+      <button id="btn-ver-usuarios" style="margin: 20px auto; display: none;">👥 Ver Usuarios Registrados</button>
+    </main>
+
+    <footer>
+      <p>© 2025 Ranmafic. Todos los derechos reservados.</p>
+      <div class="social-media">
+        <a href="https://www.youtube.com/" target="_blank">YouTube</a> |
+        <a href="https://www.instagram.com/ranmafic" target="_blank">Instagram</a> |
+        <a href="https://www.tiktok.com/@ranmafic" target="_blank">TikTok</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="modal-confirm" class="modal">
+    <div class="modal-content small-modal">
+        <span class="cerrar-confirm">&times;</span>
+        <h2 id="confirm-title"></h2>
+        <p id="confirm-message"></p>
+        <div class="modal-actions">
+            <button id="confirm-btn" class="btn-primary">Confirmar</button>
+            <button id="cancel-btn" class="btn-secondary">Cancelar</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="modal-report" class="modal">
+    <div class="modal-content">
+        <span class="cerrar-report">&times;</span>
+        <h2>Reportar un Problema</h2>
+        <form id="report-form">
+            <div class="form-group">
+                <label for="report-description">Describe el problema:</label>
+                <textarea id="report-description" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Enviar Reporte</button>
+        </form>
+    </div>
+  </div>
+
+  <div id="modal-admin" class="modal">
+    <div class="modal-content">
+        <span class="cerrar-admin">&times;</span>
+        <h2>Panel de Administrador</h2>
+        <h3>Reportes de Problemas</h3>
+        <ul id="admin-reports-list" class="admin-reports-list">
+            </ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

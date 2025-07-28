@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión - Ranmafic</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://placehold.co/32x32/E63946/FFFFFF?text=R" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body.login-page-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 20px;
+    }
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .login-container h2 {
+      font-weight: 900;
+      font-size: 2.5em;
+      margin-bottom: 25px;
+      color: var(--primary-color);
+    }
+    .login-container input {
+        margin-bottom: 20px !important;
+    }
+    .toggle-link {
+      margin-top: 20px;
+      cursor: pointer;
+      color: #007BFF;
+      font-weight: bold;
+      font-size: 0.9em;
+      transition: color 0.3s;
+    }
+    .toggle-link:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="login-page-body">
+  <div class="login-container">
+    <h2 id="form-title">Iniciar Sesión</h2>
+    <input type="text" id="nombre" placeholder="Nombre de usuario" required>
+    <input type="password" id="clave" placeholder="Contraseña" required>
+    <button id="auth-button">Entrar</button>
+    <div class="toggle-link" id="toggle-mode">¿No tienes cuenta? Regístrate</div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let modoRegistro = false;
+        const formTitle = document.getElementById('form-title');
+        const authButton = document.getElementById('auth-button');
+        const toggleLink = document.getElementById('toggle-mode');
+        const nombreInput = document.getElementById('nombre');
+        const claveInput = document.getElementById('clave');
+
+        // Asegura que los usuarios admin existan
+        let usuarios = JSON.parse(localStorage.getItem('usuarios') || '{}');
+        if (!usuarios['admin']) {
+            usuarios['admin'] = { clave: 'admin', rol: 'admin' };
+        }
+        if (!usuarios['liroypujolsquezada']) {
+            usuarios['liroypujolsquezada'] = { clave: 'liroypujols16', rol: 'admin' };
+        }
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+
+        function alternarModo() {
+            modoRegistro = !modoRegistro;
+            formTitle.innerText = modoRegistro ? 'Registrarse' : 'Iniciar Sesión';
+            authButton.innerText = modoRegistro ? 'Registrarse' : 'Entrar';
+            toggleLink.innerText = modoRegistro ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate';
+        }
+
+        function autenticar() {
+            const nombre = nombreInput.value.trim();
+            const clave = claveInput.value;
+
+            if (!nombre || !clave) {
+                alert('Completa todos los campos.');
+                return;
+            }
+
+            let usuarios = JSON.parse(localStorage.getItem('usuarios') || '{}');
+            if (modoRegistro) {
+                if (usuarios[nombre]) {
+                    alert('Ese nombre de usuario ya existe.');
+                    return;
+                }
+                usuarios[nombre] = { clave: clave, rol: 'usuario' };
+                localStorage.setItem('usuarios', JSON.stringify(usuarios));
+                alert('¡Usuario registrado correctamente! Ahora puedes iniciar sesión.');
+                alternarModo();
+            } else {
+                if (usuarios[nombre] && usuarios[nombre].clave === clave) {
+                    localStorage.setItem('usuarioActivo', nombre);
+                    localStorage.setItem('rolActivo', usuarios[nombre].rol);
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Usuario o contraseña incorrectos.');
+                }
+            }
+        }
+        
+        authButton.addEventListener('click', autenticar);
+        toggleLink.addEventListener('click', alternarModo);
+        claveInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') autenticar();
+        });
+    });
+  </script>
+</body>
+</html>
