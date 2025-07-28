@@ -1,18 +1,17 @@
 /* --- Tema "Todo Naranja" --- */
 :root {
-    --primary-color: #e63946;         /* Rojo para botones y elementos importantes */
-    --accent-color: #ffb347;          /* Naranja para el degradado y acentos */
-    --dark-color: #2b2d42;            /* Azul marino oscuro para el texto principal */
-    --light-color: #edf2f4;           /* Color claro para texto sobre fondos oscuros (botones, títulos, menú) */
-    --black-color: #000000;           /* Nuevo: Color negro puro */
-    --gray-light: #f0f0f0;            /* Nuevo: Gris muy claro para fondos sutiles */
-    --gray-medium: #bdbdbd;           /* Nuevo: Gris medio para bordes sutiles */
-    --comment-background: #ffffff;    /* Nuevo: Blanco puro para el fondo de cada comentario */
-    --comment-border-color: #e0e0e0;  /* Nuevo: Borde muy claro para los comentarios */
-    --comment-text-color: #333333;    /* Nuevo: Gris oscuro casi negro para el texto del comentario */
-    --comment-meta-color: #777777;    /* Nuevo: Gris medio para fecha/hora */
-    --action-button-color: #6a0dad;   /* Nuevo: Color similar al morado de la imagen para botones de acción */
-
+    --primary-color: #e63946; /* Rojo para botones y elementos importantes */
+    --accent-color: #ffb347; /* Naranja para el degradado y acentos */
+    --dark-color: #2b2d42; /* Azul marino oscuro para el texto principal */
+    --light-color: #edf2f4; /* Color claro para texto sobre fondos oscuros (botones, títulos, menú) */
+    --black-color: #000000; /* Nuevo: Color negro puro */
+    --gray-light: #f0f0f0; /* Nuevo: Gris muy claro para fondos sutiles */
+    --gray-medium: #bdbdbd; /* Nuevo: Gris medio para bordes sutiles */
+    --comment-background: #ffffff; /* Nuevo: Blanco puro para el fondo de cada comentario */
+    --comment-border-color: #e0e0e0; /* Nuevo: Borde muy claro para los comentarios */
+    --comment-text-color: #333333; /* Nuevo: Gris oscuro casi negro para el texto del comentario */
+    --comment-meta-color: #777777; /* Nuevo: Gris medio para fecha/hora */
+    --action-button-color: #6a0dad; /* Nuevo: Color similar al morado de la imagen para botones de acción */
 
     /* Variables para el efecto de vidrio - ajustados */
     --header-background: rgba(255, 255, 255, 0.25); /* Menú más transparente */
@@ -24,10 +23,9 @@
     --success-color: #4CAF50;
     --error-color: #F44336;
     --info-color: #2196F3;
-
     /* Colores de texto según el fondo */
-    --text-on-dark: var(--light-color);  /* Texto claro sobre fondos oscuros */
-    --text-on-light: var(--dark-color);  /* Texto azul marino sobre fondos claros/naranjas */
+    --text-on-dark: var(--light-color); /* Texto claro sobre fondos oscuros */
+    --text-on-light: var(--dark-color); /* Texto azul marino sobre fondos claros/naranjas */
     --white-text-area-background: #ffffff; /* Fondo blanco para áreas de texto */
 }
 
@@ -562,6 +560,66 @@ section h2 {
     color: var(--dark-color); /* Párrafos en azul marino */
 }
 
+/* NUEVAS REGLAS PARA LA LEGIBILIDAD DEL CONTENIDO (ESPECIALMENTE QUILL) */
+/* Asegura que el color de texto por defecto sea oscuro sobre fondos claros */
+body {
+    color: var(--dark-color); /* O tu color principal de texto oscuro */
+}
+
+/* Para cualquier contenedor principal de contenido donde el fondo sea claro */
+/* Si tienes otros contenedores específicos para fanfics, etc., agrégalos aquí */
+.content-section,
+.main-content,
+.gallery-description, /* Si las descripciones de galería son problemáticas */
+.comment-text { /* Si los comentarios son problemáticos */
+    background-color: var(--comment-background); /* Fondo blanco o claro */
+    color: var(--comment-text-color); /* Texto oscuro */
+    /* Otros estilos de padding, border-radius, etc. */
+}
+
+/* Estilos para el contenido generado por Quill (textos de fanfics, descripciones) */
+.ql-editor {
+    /* El editor en sí mismo */
+    font-family: 'Montserrat', sans-serif; /* O la fuente que uses en tu sitio */
+    font-size: 1.1em; /* Ajusta al tamaño que consideres legible */
+    line-height: 1.6; /* Espaciado entre líneas para mejor lectura */
+    color: var(--comment-text-color); /* Color oscuro para el texto principal */
+    background-color: var(--comment-background); /* Fondo claro para la zona de lectura */
+    padding: 20px; /* Un poco de padding para que el texto no toque los bordes */
+    border-radius: 8px; /* Si quieres bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Una sombra sutil */
+}
+
+/* Asegura que los enlaces dentro del contenido sean visibles */
+.ql-editor a {
+    color: var(--primary-color); /* O un color de acento para los enlaces */
+    text-decoration: underline;
+}
+
+/* Estilos para encabezados dentro del contenido (Quill usa h1, h2, etc.) */
+.ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6 {
+    color: var(--dark-color); /* Un color oscuro para los encabezados */
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+
+/* Estilos para bloques de código o citas si Quill los usa */
+.ql-editor pre {
+    background-color: var(--dark-color); /* Fondo oscuro para bloques de código */
+    color: var(--light-color); /* Texto claro para código */
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+.ql-editor blockquote {
+    border-left: 4px solid var(--accent-color); /* O un color que resalte */
+    padding-left: 15px;
+    margin-left: 0;
+    font-style: italic;
+    color: var(--comment-text-color);
+}
+/* FIN DE NUEVAS REGLAS */
 
 .btn-primary, .btn-secondary, .btn-danger {
     display: inline-block;
@@ -785,393 +843,112 @@ section h2 {
     padding: 15px 20px; /* Más padding */
     border-radius: 12px; /* Más redondeado, similar a la imagen */
     border: 1px solid var(--comment-border-color); /* Borde muy claro */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra más prominente para la tarjeta */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex; /* Para organizar contenido interno */
-    align-items: flex-start; /* Alinear el inicio */
-    gap: 15px; /* Espacio entre avatar/icono y texto */
-}
-
-.comment-item:hover {
-    transform: translateY(-3px); /* Ligero levantamiento al pasar el mouse */
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15); /* Sombra más pronunciada al hover */
-}
-
-/* Avatar del usuario en el comentario */
-.comment-avatar {
-    width: 45px; /* Tamaño del avatar */
-    height: 45px;
-    border-radius: 50%;
-    background-color: var(--dark-color); /* Fondo azul marino para el avatar si no hay imagen */
-    color: var(--light-color); /* Color de texto/icono si no hay imagen */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    flex-shrink: 0;
-    overflow: hidden; /* Asegura que la imagen de avatar no se desborde */
-    border: 2px solid var(--primary-color); /* Borde rojo alrededor del avatar */
-}
-
-.comment-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%; /* Asegura que la imagen sea circular */
-}
-
-/* Si no hay imagen, usar la inicial o un icono (la lógica de fallback se maneja con JS) */
-.comment-avatar:empty::before {
-    content: attr(data-initial); /* Usa el atributo data-initial */
-    font-family: 'Font Awesome 5 Free'; /* Asume Font Awesome para el icono si JS lo inserta */
-    font-weight: 900;
-}
-
-
-.comment-content-wrapper {
-    flex-grow: 1; /* Permite que el contenido tome el espacio restante */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Sombra sutil */
+    display: flex; /* Usar flexbox para la estructura interna del comentario */
+    flex-direction: column;
 }
 
 .comment-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
-.comment-author-info {
-    display: flex;
-    flex-direction: column; /* Apilar nombre y fecha */
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 2px solid var(--primary-color); /* Borde rojo */
 }
 
-.comment-author-info strong {
-    color: var(--dark-color); /* Nombre de usuario en azul marino */
-    font-size: 1.1em; /* Un poco más grande */
-    font-weight: 700;
+.comment-username {
+    font-weight: bold;
+    color: var(--dark-color); /* Nombre de usuario oscuro */
+    font-size: 1.1em;
 }
 
-.comment-author-info small {
-    color: var(--comment-meta-color); /* Gris medio para la fecha */
-    font-size: 0.8em;
-    display: block;
-    margin-top: 2px;
+.comment-meta {
+    font-size: 0.85em;
+    color: var(--comment-meta-color); /* Gris medio para la fecha/hora */
+    margin-left: auto; /* Empuja la fecha a la derecha */
+}
+
+.comment-text {
+    font-size: 1em;
+    color: var(--comment-text-color); /* Texto del comentario gris oscuro */
+    line-height: 1.6;
 }
 
 .comment-actions {
-    display: flex;
-    gap: 10px; /* Espacio entre botones de acción */
+    margin-top: 10px;
+    text-align: right;
 }
 
-.comment-actions .action-btn {
+.comment-actions button {
     background: none;
     border: none;
-    color: var(--comment-meta-color); /* Color gris para los iconos de acción */
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: color 0.2s ease, transform 0.2s ease;
-    padding: 5px; /* Padding para hacer clic más fácil */
-    border-radius: 5px;
-}
-
-.comment-actions .action-btn:hover {
-    color: var(--primary-color); /* Rojo al pasar el mouse */
-    transform: translateY(-1px);
-}
-
-.comment-actions .action-btn.delete-btn:hover {
-    color: var(--error-color); /* Rojo de error para eliminar */
-}
-
-
-.comment-item p {
-    color: var(--comment-text-color); /* Texto del comentario en gris oscuro */
-    font-size: 0.95em;
-    line-height: 1.6;
-    margin-bottom: 10px; /* Espacio antes de los botones de responder */
-}
-
-/* Botón Responder dentro del comentario */
-.comment-item .reply-btn {
-    display: inline-flex; /* Usar flexbox para el icono y texto */
-    align-items: center;
-    gap: 5px;
-    background-color: var(--dark-color); /* Fondo azul marino para el botón */
-    color: var(--light-color); /* Texto claro */
-    padding: 8px 15px;
-    border-radius: 20px; /* Borde más redondeado */
+    color: var(--primary-color); /* Botones de acción en rojo */
     font-size: 0.9em;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    border: none;
     cursor: pointer;
+    transition: opacity 0.2s ease;
+    margin-left: 15px; /* Espacio entre botones */
 }
 
-.comment-item .reply-btn:hover {
-    background-color: var(--primary-color); /* Rojo al pasar el mouse */
-    transform: translateY(-2px);
-}
-
-
-/* Formulario de comentarios */
-#image-comment-form {
-    margin-top: 30px; /* Más espacio superior */
-    padding: 25px; /* Padding para el formulario */
-    background-color: var(--comment-background); /* Fondo blanco para el formulario */
-    border-radius: 12px; /* Bordes redondeados */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra similar a los comentarios */
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.comment-input-area {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.comment-input-area .comment-avatar {
-    width: 50px; /* Un poco más grande para el avatar del usuario actual */
-    height: 50px;
-}
-
-#image-comment-form textarea {
-    flex-grow: 1; /* Permite que el textarea ocupe el espacio restante */
-    resize: vertical;
-    min-height: 80px;
-    max-height: 200px;
-    padding: 12px;
-    border-radius: 8px;
-    background-color: var(--white-text-area-background);
-    color: var(--dark-color);
-    border: 1px solid var(--gray-medium); /* Borde gris más suave */
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#image-comment-form textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
-}
-
-#image-comment-form .btn-primary {
-    align-self: flex-end; /* Alinear el botón a la derecha en la parte inferior */
-    margin-top: 0; /* Eliminar margen superior si se usó flotación antes */
-}
-
-/* File Upload (Drop Area) */
-.drop-area {
-    border: 2px dashed var(--dark-color); /* Borde azul marino para el drop area */
-    border-radius: 8px;
-    padding: 30px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    background-color: var(--white-text-area-background); /* Fondo blanco para drop area */
-    color: var(--dark-color); /* Texto azul marino */
-}
-
-.drop-area.highlight {
-    background-color: rgba(255,255,255,0.9); /* Color de resaltado más claro */
-    border-color: var(--primary-color);
-}
-
-.drop-area p {
-    margin-bottom: 15px;
-    font-size: 1.1em;
-}
-
-#file-preview img {
-    max-width: 150px;
-    max-height: 150px;
-    border-radius: 5px;
-    margin-top: 20px;
-    border: 1px solid var(--dark-color);
-}
-
-/* Tags - Con degradado y diseño mejorado */
-.tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Mayor separación entre tags */
-    margin-bottom: 20px; /* Más espacio inferior */
-    min-height: 40px;
-    border: 1px solid var(--dark-color); /* Borde azul marino para el contenedor de tags */
-    border-radius: 8px; /* Ligeramente más redondeado */
-    padding: 10px;
-    background-color: var(--white-text-area-background); /* Fondo blanco para el contenedor de tags */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra interna sutil */
-}
-
-.tag, .editable-tag {
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%); /* Degradado naranja completo */
-    color: var(--dark-color); /* Texto azul marino en las etiquetas */
-    padding: 8px 15px; /* Más padding para que sean más grandes */
-    border-radius: 25px; /* Más redondeado para un aspecto de píldora */
-    font-size: 1em; /* Un poco más grande el texto */
-    font-weight: 600; /* Semi-negrita para mayor legibilidad */
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Espacio entre texto y la 'x' */
-    border: 1px solid rgba(0, 0, 0, 0.2); /* Borde sutil para definir */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Sombra para efecto 3D */
-    transition: all 0.2s ease-in-out; /* Transición suave para hover */
-    cursor: default; /* Por defecto no cursor de puntero a menos que sea interactivo */
-}
-
-.tag:hover, .editable-tag:hover {
-    transform: translateY(-2px); /* Pequeño levantamiento al pasar el ratón */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Sombra más pronunciada al pasar el ratón */
-    filter: brightness(1.05); /* Ligeramente más brillante */
-}
-
-.editable-tag {
-    cursor: pointer; /* Cursor de puntero para tags editables */
-}
-
-.editable-tag .remove-tag-btn {
-    background: none;
-    border: none;
-    color: var(--dark-color); /* Color azul marino para el botón de eliminar tag */
-    font-size: 1.2em; /* Tamaño de la 'x' */
-    cursor: pointer;
-    margin-left: 5px;
-    opacity: 0.8;
-    transition: color 0.2s ease, opacity 0.2s ease;
-    padding: 0;
-    line-height: 1;
-}
-
-.editable-tag .remove-tag-btn:hover {
-    color: var(--primary-color); /* Rojo al pasar el ratón sobre la 'x' */
-    opacity: 1;
-}
-
-.suggested-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Mayor separación */
-    margin-top: 15px; /* Más espacio superior */
-}
-
-.suggested-tag {
-    background-color: var(--dark-color); /* Suggested tags en azul marino */
-    color: var(--light-color);
-    padding: 8px 15px;
-    border-radius: 25px; /* Más redondeado */
-    font-size: 0.95em; /* Un poco más grande */
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: 1px solid var(--light-color);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.suggested-tag:hover {
-    background-color: var(--accent-color);
-    color: var(--dark-color);
-    transform: translateY(-3px); /* Efecto más pronunciado al levantar */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.suggested-tag.selected {
-    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Degradado para tags seleccionadas */
-    color: var(--dark-color); /* Texto azul marino en tags seleccionadas */
-    border-color: var(--dark-color); /* Borde azul marino */
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transform: translateY(-1px); /* Ligeramente elevado para indicar selección */
-}
-
-.tags-container-modal {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-    justify-content: center;
-    border-top: 1px solid rgba(0,0,0,0.3); /* Borde oscuro */
-    padding-top: 15px;
-}
-
-.tags-container-modal .tag {
-    background-color: var(--dark-color); /* Tags en modal azul marino (mantener para contraste en algunos modales) */
-    color: var(--light-color);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Añadir sombra también aquí */
-    border: none; /* No border para estas */
-}
-
-/* Search Input */
-.search-input {
-    width: 100%;
-    padding: 12px 20px;
-    margin-bottom: 20px;
-    border: 1px solid var(--dark-color); /* Borde azul marino */
-    border-radius: 50px;
-    background-color: var(--white-text-area-background); /* Fondo blanco para search input */
-    color: var(--dark-color); /* Texto azul marino */
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.1em;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-}
-
-.search-input::placeholder {
-    color: var(--dark-color);
+.comment-actions button:hover {
     opacity: 0.7;
 }
 
-.search-input:focus {
+/* Add Comment Form */
+.add-comment-form {
+    background-color: var(--comment-background); /* Fondo blanco para el formulario de comentario */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-top: 25px;
+    border: 1px solid var(--comment-border-color);
+}
+
+.add-comment-form h4 {
+    color: var(--dark-color); /* Título del formulario oscuro */
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+.add-comment-form textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 1px solid var(--gray-medium); /* Borde gris medio */
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    color: var(--dark-color);
+    background-color: var(--gray-light); /* Fondo gris muy claro para el textarea */
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+.add-comment-form textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
 }
 
-/* FAB for Gallery Upload */
-.fab-upload-image {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: var(--primary-color);
-    color: var(--light-color);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.8em;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    z-index: 100;
-    border: none;
-}
-
-.fab-upload-image:hover {
-    background-color: #d62828;
-    transform: translateY(-3px);
+.add-comment-form .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1em;
 }
 
 /* Footer */
 footer {
-    background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); /* Degradado naranja para el footer */
-    color: var(--dark-color); /* Texto azul marino para el footer */
+    background: var(--dark-color); /* Footer azul marino */
+    color: var(--light-color); /* Texto del footer claro */
     text-align: center;
-    padding: 20px 40px;
-    border-top: 1px solid rgba(0, 0, 0, 0.2); /* Borde superior oscuro */
-    margin-top: 30px;
-}
-
-.social-media a {
-    color: var(--dark-color); /* Links de redes sociales azul marino */
-    margin: 0 10px;
+    padding: 20px;
+    margin-top: 40px;
     font-size: 0.9em;
-}
-
-.social-media a:hover {
-    color: var(--light-color); /* Hover en color claro */
 }
